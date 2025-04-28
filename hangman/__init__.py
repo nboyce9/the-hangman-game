@@ -1,1 +1,0 @@
-print("from hangman init file")
