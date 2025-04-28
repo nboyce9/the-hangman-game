@@ -1,13 +1,13 @@
 import random
-import words
+#from . import words
 
 
-# try:
-#     # When running as part of the hangman package
-#     from hangman import words
-# except ImportError:
-#     # When running as a standalone script
-#     import words
+try:
+    # When running as part of the hangman package
+    from hangman import words
+except ImportError:
+    # When running as a standalone script
+    import words
 
 
 def getCategory():
