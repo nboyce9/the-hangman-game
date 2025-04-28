@@ -1,5 +1,5 @@
 import random
-import words
+from hangman import words
 
 
 # try:
