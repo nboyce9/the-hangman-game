@@ -1,5 +1,11 @@
 import random
-import words
+
+try:
+    # When running as part of the hangman package
+    from hangman import words
+except ImportError:
+    # When running as a standalone script
+    import words
 
 
 def getCategory():
@@ -154,7 +160,7 @@ def gameOpening():
     """
     Displays the opening screen of the game.
     """
-
+    
     print(r"""
             *********************************************************************
             *                  _                                 _              *
@@ -177,7 +183,7 @@ def gameOver():
     """
     Displays the game over screen.
     """
-
+    
     print(r"""
             ****************************************************************************
             *                                                                          *
