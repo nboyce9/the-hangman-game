@@ -104,7 +104,7 @@ def gameOver():
 def runGame():
     initial_lives = 5
     gameOpening()
-    word_list = readFile("temp_words.txt")
+    word_list = readFile("words.txt")
     word = getWord(word_list)
     blacked_out_word = blackOutWord(word)
     print(f"Random word: {word}")
