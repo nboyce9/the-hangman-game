@@ -1,6 +1,27 @@
 import random
 
 
+def getCategory():
+    print("""\nEnter the number of the category you want to play:\n
+    1. Plant\n
+    2. Animal\n
+    3. Country\n
+    4. Food\n
+    5. Sport\n
+    """)
+    
+    while True:
+        try:
+            category = int(input("Enter a number of your category: "))
+            if category in [1, 2, 3, 4, 5]:
+                break
+            else:
+                print("Please enter a valid number for the category.\n")
+        except ValueError:
+            print("Invalid input. Please enter a number.\n")
+    
+    return category
+
 
 isGameOver = False
 
