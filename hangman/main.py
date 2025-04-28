@@ -1,13 +1,7 @@
 import random
 
-# def getLevel():
-#     level = input("Enter the level (e.g 1 for 'Beginner'): ")
-#     return level
 
 
-# def getCategory():
-#     category = input("Enter the category (e.g 1 for 'Fruits'): ")
-#     return category
 isGameOver = False
 
 def readFile(filename):
@@ -28,8 +22,9 @@ def blackOutWord(word):
             word = word.replace(word[i], "_")
     return word
 
+
 def guessWordInput():
-    user_input = input("Enter your guessed word: ")
+    user_input = input("Enter your guess: ")
     return user_input
 
     
@@ -46,11 +41,13 @@ def updateWordFromGuess(guess, word, blacked_out_word):
     blacked_out_word = "".join(blacked_out_word)
     return blacked_out_word
 
+
 def isCorrectGuess(guess, word):
     if guess in word:
         return True
     else:
         return False
+    
     
 def drawHangman(lives):
     match lives:
@@ -64,6 +61,7 @@ def drawHangman(lives):
             print("""/----\n|   0\n|  /|\\\n|   |\n|\n_______""") 
         case 0:
             print("""/----\n|   0\n|  /|\\\n|   |\n|  / \\\n_______""")
+            gameOver()
 
 def gameOpening():
     print(r"""
@@ -100,42 +98,38 @@ def gameOver():
             ****************************************************************************
             """)
     
+def lives(initial_lives, word):
+    initial_lives -= 1
+    drawHangman(initial_lives)
+    print(f"Lives left: {initial_lives}")
+    return initial_lives 
     
+      
 def runGame():
     initial_lives = 5
     gameOpening()
-    word_list = readFile("words.txt")
+    word_list = readFile("words.txt") 
     word = getWord(word_list)
     blacked_out_word = blackOutWord(word)
     print(f"Random word: {word}")
-    print(f"Blacked out word: {blacked_out_word}")
-    while not isGameOver:
+    print(f"The word: {blacked_out_word}") 
+     
+    while not isGameOver or initial_lives == 0:
         guess = guessWordInput()
         blacked_out_word = updateWordFromGuess(guess, word, blacked_out_word)
-        if isCorrectGuess(guess, word):
+        if isCorrectGuess(guess, word) and "_" not in blacked_out_word:
             print("Congratulations! You've guessed the word!")
             break
-        else:
-            print(f"Updated word: {blacked_out_word}")
-        initial_lives -= 1
-        drawHangman(initial_lives)
+        initial_lives = lives( initial_lives, word)
         if initial_lives == 0:
-            gameOver()
             print(f"The word was '{word}'")
             break
-        print(f"Lives left: {initial_lives}")
-        print(f"Blacked out word: {blacked_out_word}")
 
-    
-
-
-     
-     
+        print(f"The word: {blacked_out_word}")
+   
 
 if __name__ == "__main__":
-    # level = getLevel()
-    # category = getCategory()
-    # print(f"Level: {level} in {category} category")
+    print(getCategory())
     runGame()
 
 
