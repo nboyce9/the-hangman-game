@@ -31,7 +31,36 @@ class TestMain(unittest.TestCase):
         updated_word = main.updateWordFromGuess(guess, word, blacked_out_word)
         # Check if the updated word remains unchanged
         self.assertEqual(updated_word, "a____")
+    
+    def test_isCorrectGuessTrue(self):
+        word = "apple"
+        guess = "p"
+        result = main.isCorrectGuess(guess, word)
+        # Check if the guess is correct
+        self.assertTrue(result)
+    
+    def test_isCorrectGuessFalse(self):
+        word = "apple"
+        guess = "z"
+        result = main.isCorrectGuess(guess, word)
+        # Check if the guess is incorrect
+        self.assertFalse(result)
 
+    def test_drawHangman(self):
+        # Test if the drawHangman function prints the correct hangman state
+        import io
+        import sys
+
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+
+        main.drawHangman(3)
+        sys.stdout = sys.__stdout__
+
+        expected_output = "/----\n|   0\n|\n|\n|\n_______\n"
+        self.assertEqual(captured_output.getvalue(), expected_output)         
+
+    
 
 if __name__ == "__main__":
     unittest.main()
