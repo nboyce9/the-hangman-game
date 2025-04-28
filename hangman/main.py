@@ -28,9 +28,8 @@ isGameOver = False
 
 def readFile(filename):
     with open(filename, 'r') as file:
-            data = file.readlines()
-            # print(data)
-            return data
+        data = file.readlines()
+        return data
     
 def getWord(word_list):
      word = random.choice(word_list)
@@ -46,7 +45,12 @@ def blackOutWord(word):
 
 
 def guessWordInput():
-    user_input = input("Enter your guess: ")
+    while True:
+        user_input = input("Enter your guess: ")
+        if user_input and user_input.isalpha():
+            break
+        else:
+            print("Please enter a valid word.")
     return user_input
 
     
@@ -120,7 +124,7 @@ def gameOver():
             ****************************************************************************
             """)
     
-def lives(initial_lives, word):
+def lives(initial_lives):
     initial_lives -= 1
     drawHangman(initial_lives)
     print(f"Lives left: {initial_lives}")
@@ -133,16 +137,15 @@ def runGame():
     word_list = readFile("words.txt") 
     word = getWord(word_list)
     blacked_out_word = blackOutWord(word)
-    print(f"Random word: {word}")
     print(f"The word: {blacked_out_word}") 
      
     while not isGameOver or initial_lives == 0:
         guess = guessWordInput()
         blacked_out_word = updateWordFromGuess(guess, word, blacked_out_word)
-        if isCorrectGuess(guess, word) and "_" not in blacked_out_word:
+        if isCorrectGuess(blacked_out_word, word) and "_" not in blacked_out_word:
             print("Congratulations! You've guessed the word!")
             break
-        initial_lives = lives( initial_lives, word)
+        initial_lives = lives( initial_lives)
         if initial_lives == 0:
             print(f"The word was '{word}'")
             break
