@@ -3,6 +3,12 @@ import words
 
 
 def getCategory():
+    """
+    Prompts the user to select a category for the game.
+    Returns:
+        int: The number corresponding to the selected category.
+    """
+
     print("""\nEnter the number of the category you want to play:\n
     1. Plant\n
     2. Animal\n
@@ -27,15 +33,39 @@ def getCategory():
 isGameOver = False
 
 def readFile(filename):
+    """
+    Reads the contents of a file and returns the data as a list of lines.
+    Args:
+        filename (str): The name of the file to read.
+    Returns:
+        list: A list of lines from the file.
+    """
+
     with open(filename, 'r') as file:
         data = file.readlines()
         return data
     
 def getWord(word_list):
+     """
+    Selects a random word from a list of words.
+    Args:
+        word_list (list): A list of words.
+    Returns:
+        str: A randomly selected word.
+    """
+     
      word = random.choice(word_list)
      return word.strip()
 
 def blackOutWord(word):
+    """
+    Replaces all but one random letter in the word with underscores.
+    Args:
+        word (str): The word to be blacked out.
+    Returns:
+        str: The word with all but one letter replaced by underscores.
+    """
+
     letterIndex = random.randint(0, len(word) - 1)
     hintLetter = word[letterIndex]
     for i in range(len(word)):
@@ -45,17 +75,33 @@ def blackOutWord(word):
 
 
 def guessWordInput():
+    """
+    Prompts the user to input a guess and validates the input.
+    Returns:
+        str: The user's guess in lowercase.
+    """
+
     while True:
         user_input = input("Enter your guess: ")
         if user_input and user_input.isalpha():
             break
         else:
             print("Please enter a valid word.")
-    return user_input
+    return user_input.lower()
 
     
     
 def updateWordFromGuess(guess, word, blacked_out_word):
+    """
+    Updates the blacked-out word based on the user's correct guesses.
+    Args:
+        guess (str): The user's guess.
+        word (str): The original word.
+        blacked_out_word (str): The current state of the blacked-out word.
+    Returns:
+        str: The updated blacked-out word.
+    """
+    
     word_list = list(word)
     guessWord_list = list(guess)
     blacked_out_word = list(blacked_out_word)
@@ -69,6 +115,15 @@ def updateWordFromGuess(guess, word, blacked_out_word):
 
 
 def isCorrectGuess(guess, word):
+    """
+    Checks if the user's guess is correct.
+    Args:
+        guess (str): The user's guess.
+        word (str): The original word.
+    Returns:
+        bool: True if the guess is correct, False otherwise.
+    """
+
     if guess in word:
         return True
     else:
@@ -76,6 +131,12 @@ def isCorrectGuess(guess, word):
     
     
 def drawHangman(lives):
+    """
+    Displays the hangman drawing based on the number of lives remaining.
+    Args:
+        lives (int): The number of lives remaining.
+    """
+
     match lives:
         case 4:
             print("""/----\n|\n|\n|\n|\n_______""")
@@ -90,6 +151,9 @@ def drawHangman(lives):
             gameOver()
 
 def gameOpening():
+    """
+    Displays the opening screen of the game.
+    """
     print(r"""
             *********************************************************************
             *                  _                                 _              *
@@ -109,6 +173,9 @@ def gameOpening():
 
 
 def gameOver():
+    """
+    Displays the game over screen.
+    """
     print(r"""
             ****************************************************************************
             *                                                                          *
@@ -125,6 +192,14 @@ def gameOver():
             """)
     
 def lives(initial_lives):
+    """
+    Decreases the player's lives by 1 and displays the updated hangman drawing.
+    Args:
+        initial_lives (int): The current number of lives.
+    Returns:
+        int: The updated number of lives.
+    """
+
     initial_lives -= 1
     drawHangman(initial_lives)
     print(f"Lives left: {initial_lives}")
@@ -132,6 +207,10 @@ def lives(initial_lives):
     
       
 def runGame():
+    """
+    Runs the main game loop, handling user input, word updates, and game state.
+    """
+    
     initial_lives = 5
     gameOpening()
     word_list = readFile("words.txt") 
