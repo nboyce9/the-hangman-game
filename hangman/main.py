@@ -1,4 +1,5 @@
 import random
+import words
 
 
 def getCategory():
@@ -150,7 +151,8 @@ def runGame():
    
 
 if __name__ == "__main__":
-    print(getCategory())
+    user_category = getCategory()
+    words.get_words(user_category)
     runGame()
 
 
