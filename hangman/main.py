@@ -1,5 +1,5 @@
 import random
-import words
+from . import words
 
 
 # try:
