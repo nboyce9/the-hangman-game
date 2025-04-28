@@ -2,14 +2,6 @@ import random
 from hangman import words
 
 
-# try:
-#     # When running as part of the hangman package
-#     from hangman import words
-# except ImportError:
-#     # When running as a standalone script
-#     import words
-
-
 def getCategory():
     """
     Prompts the user to select a category for the game.
